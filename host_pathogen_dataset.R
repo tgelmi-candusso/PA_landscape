@@ -6,7 +6,7 @@ library(ggplot2)
 urban_species <- read_csv("C:/Users/tizge/Documents/HW project/urban_species_and_their_adaptations_from_Santini_2018.csv")%>%
   dplyr::select(-Order, -Family) %>%
   rename(species=Species)
-urb_spp <- urban_species$Species
+urb_spp <- urban_species$species
 
 
 #host-disease associations from Albery et al., 2022
@@ -60,13 +60,10 @@ groups$id <- c(1:nrow(groups))
 
 regrouped_host_communities2 <- left_join(regrouped_host_communities2, groups)
 
-View(regrouped_host_communities)
+# View(regrouped_host_communities)
 regrouped_host_communities3 <- regrouped_host_communities2 %>% dplyr::filter(!(MSW05_Order %in% c("Rodentia", "Soricomorpha", "Chiroptera")))
 ggplot(regrouped_host_communities3, aes(x=group, y=species, color=MSW05_Order))+
   geom_boxplot()
-
-#clean columns
-d <- d %>% dplyr::select("pathogen", "type", "target", "transmission", "vector.id", "reservoir.type", "species", "MSW05_Order", "AdultMass_g")
 
 #similarity matrix
 #make correlation matrix
